@@ -8,22 +8,31 @@ const TableCoins = ({coins, search}) => {
     return coin.name.toLowerCase().includes(search.toLowerCase()) || coin.symbol.toLowerCase().includes(search.toLowerCase())
   });
 
-  const titles = ['#', 'Coin', 'Price', 'Price Change', '24 Volume']
+  const titles = ['#', 'Coin', 'Price', 'Price Change', '24 Volume'];
+  const titleMobile = ['#', 'Coin', 'Price',]
+
+  const isMobile = window.screen.width < 426
+
+  
+
   return (
     <table className='table table-dark mt-4 table-hover'>
         <thead>
             <tr>
                 {
-                    titles.map((item)=>(
+                   !isMobile ? titles.map((item)=>(
+                        <th>{item}</th>
+                    )) : titleMobile.map((item)=>(
                         <th>{item}</th>
                     ))
+
                 }
             </tr>
         </thead>
         <tbody>
             {
                 filterCoins.map((coin, index)=>(
-                    <CoinRow coin={coin} key={index} index={index + 1}/>
+                    <CoinRow isMobile={isMobile} coin={coin} key={index} index={index + 1}/>
                 ))
             }
         </tbody>
